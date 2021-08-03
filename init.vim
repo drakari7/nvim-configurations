@@ -134,7 +134,7 @@ autocmd BufWinEnter *.cpp nnoremap <leader>rr :w<CR>:!g++ -std=c++17 % && ./a.ou
 autocmd BufWinEnter *.cpp nnoremap <leader>rt :w<CR>:!g++ -std=c++17 % && ./a.out < testfile<CR>
 
 " Open module documentation
-autocmd BufWinEnter *.py nnoremap gc yiw:!open https://docs.python.org/3/library/<C-r>".html<CR><CR>
+autocmd BufWinEnter *.py nnoremap <leader>gc yiw:!open https://docs.python.org/3/library/<C-r>".html<CR><CR>
 
 " Compiling latex files
 autocmd BufWinEnter *.tex nnoremap <leader>r :w<CR>:!pdflatex %<CR>
