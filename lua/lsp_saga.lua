@@ -19,12 +19,12 @@ code_action_prompt = {
 },
 finder_definition_icon = '',
 finder_reference_icon = '',
-max_preview_lines = 10, -- preview lines of lsp_finder and definition preview
+max_preview_lines = 12, -- preview lines of lsp_finder and definition preview
 finder_action_keys = {
-  open = 'o', vsplit = 's',split = 'i',quit = 'q',scroll_down = '<C-f>', scroll_up = '<C-b>' -- quit can be a table
+  open = 'o', vsplit = 's',split = 'i',quit = 'q',scroll_down = '<C-j>', scroll_up = '<C-k>' -- quit can be a table
 },
 code_action_keys = {
-  quit = 'q',exec = '<CR>'
+  quit = {'q', '<Esc>'},exec = '<CR>'
 },
 rename_action_keys = {
   quit = '<Esc>',exec = '<CR>'  -- quit can be a table
@@ -41,15 +41,15 @@ local opts = { silent=true, noremap=true }
 
 -- set_keymap('n', 'gd', "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>", opts)
 -- set_keymap('n', 'gh', "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", opts)
-set_keymap('n', 'K', "<cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>", opts)
+-- set_keymap('n', 'K', "<cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>", opts)
 set_keymap('n', '<leader>sr', "<cmd>lua require'lspsaga.rename'.rename()<CR>", opts)
-set_keymap('n', 'gs', "<cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>", opts)
+-- set_keymap('n', 'gs', "<cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>", opts)
 set_keymap('n', '<leader>ca', "<cmd>lua require'lspsaga.codeaction'.code_action()<CR>", opts)
 set_keymap('v', '<leader>ca', "<C-U>lua require'lspsaga.codeaction'.range_code_action()<CR>", opts)
 -- set_keymap('n', '<leader>de', "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", opts)
-set_keymap('n', '[d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", opts)
-set_keymap('n', ']d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
+-- set_keymap('n', '[d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", opts)
+-- set_keymap('n', ']d', "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
 
-set_keymap('n', '<C-f>', "<cmd>lua require'lspsaga.action'.smart_scroll_with_saga(1)<CR>", opts)
-set_keymap('n', '<C-b>', "<cmd>lua require'lspsaga.action'.smart_scroll_with_saga(-1)<CR>", opts)
+-- set_keymap('n', '<C-j>', "<cmd>lua require'lspsaga.action'.smart_scroll_with_saga(1)<CR>", opts)
+-- set_keymap('n', '<C-k>', "<cmd>lua require'lspsaga.action'.smart_scroll_with_saga(-1)<CR>", opts)
 

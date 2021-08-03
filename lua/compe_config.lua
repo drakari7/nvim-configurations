@@ -4,7 +4,7 @@ require'compe'.setup {
   enabled = true;
   autocomplete = true;
   debug = false;
-  min_length = 3;
+  min_length = 2;
   preselect = 'enable';
   throttle_time = 80;
   source_timeout = 200;
@@ -73,3 +73,4 @@ vim.api.nvim_set_keymap("i", "<tab>", "v:lua.tab_complete()", opts)
 vim.api.nvim_set_keymap("s", "<tab>", "v:lua.tab_complete()", opts)
 vim.api.nvim_set_keymap("i", "<S-tab>", "v:lua.s_tab_complete()", opts)
 vim.api.nvim_set_keymap("s", "<S-tab>", "v:lua.s_tab_complete()", opts)
+vim.api.nvim_set_keymap('i', '<cr>', 'compe#confirm("<cr>")', { expr = true })

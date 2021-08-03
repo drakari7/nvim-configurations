@@ -29,8 +29,9 @@ Plug 'honza/vim-snippets'           " Actual snippets
 Plug 'neovim/nvim-lspconfig'        " Basic LSP plugin
 Plug 'glepnir/lspsaga.nvim'         " enhanced LSP features
 Plug 'ray-x/lsp_signature.nvim'     " Function signatures
-Plug 'nvim-treesitter/nvim-treesitter' 
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do' : ':TSUpdate' }
 Plug 'nvim-treesitter/playground'   " Testing and queries for treesitter
+" TODO: take a look at treesitter objects
 
 " Miscellaneous and temp
 " Plug 'ryanoasis/vim-devicons'
@@ -93,6 +94,7 @@ filetype plugin indent on
 " Sourcing config files
 "------------------------------------------------------------
 source ~/.config/nvim/after/colors.vim
+" source ~/.config/nvim/after/search.vim
 
 lua require('plugins')
 lua require('lsp_config')
@@ -131,6 +133,8 @@ autocmd BufWinEnter *.cpp nnoremap <leader>rr :w<CR>:!g++ -std=c++17 % && ./a.ou
 " Run with a testcase
 autocmd BufWinEnter *.cpp nnoremap <leader>rt :w<CR>:!g++ -std=c++17 % && ./a.out < testfile<CR>
 
+" Open module documentation
+autocmd BufWinEnter *.py nnoremap gc yiw:!open https://docs.python.org/3/library/<C-r>".html<CR><CR>
 
 " Compiling latex files
 autocmd BufWinEnter *.tex nnoremap <leader>r :w<CR>:!pdflatex %<CR>
@@ -209,8 +213,7 @@ nnoremap <leader>vc :tabe ~/.config/nvim/init.vim<CR>
 nnoremap <leader>lc :lclose<CR>
 nnoremap <leader>qc :cclose<CR>
 nnoremap <leader>w <C-W><C-W>
-nnoremap gz yi':!open https://github.com/<C-R>"<CR><CR>
-" nnoremap gz" yi":!open https://github.com/<C-R>"<CR><CR>
+nnoremap gz yi':!open https://github.com/<C-r>"<CR><CR>
 
 " Shortcuts for file tree
 map <leader>nn :NERDTreeTabsToggle<CR>

@@ -8,28 +8,12 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    use {
-        "vhyrro/neorg",
-        config = function()
-            require('neorg').setup {
-                load = {
-                    ["core.defaults"] = {},
-                    ["core.keybinds"] = {
-                        config = {
-                            default_keybinds = true,
-                            neorg_leader = "<leader>o",
-                        }
-                    },
-                    ["core.norg.concealer"] = {}, -- Allows for use of icons
-                    ["core.norg.dirman"] = { -- Manage your directories with Neorg
-                        config = {
-                            workspaces = {
-                                general_notes = "~/neorg"
-                            }
-                        }
-                    }
-                },
-            }
-        end,
-    }
+    -- use {
+    --     'nvim-treesitter/nvim-treesitter',
+    --     branch = '0.5-compat',
+    --     run = ':TSUpdate',
+    -- }
+
+    -- use 'nvim-treesitter/playground'
+
 end)
