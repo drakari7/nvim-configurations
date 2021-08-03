@@ -1,20 +1,20 @@
 " Overwrites the color scheme
 " Background is 1f1f1f
 " temp color #ebdbb2
-let background = "#1f1f1f"
+" let background = "#1f1f1f"
 
-hi Normal           guifg=#efefef       guibg=#1f1f1f       gui=none
-hi SignColumn       guifg=none          guibg=#1c1c1c       gui=none
-hi EndOfBuffer      guifg=#303030       guibg=#1f1f1f       gui=none
-hi LineNr           guifg=#e37412       guibg=#1f1f1f       gui=none
+hi Normal           guifg=#efefef       guibg=none          gui=none
+hi SignColumn       guifg=none          guibg=none          gui=none
+hi EndOfBuffer      guifg=#303030       guibg=none          gui=none
+hi LineNr           guifg=#e37412       guibg=none          gui=none
 hi Pmenu            guifg=#efefef       guibg=#363944       gui=none
-hi NormalFloat      guifg=none          guibg=#1f1f1f       gui=none
-hi FloatBorder      guifg=#21eda9       guibg=#1f1f1f       gui=none
+hi NormalFloat      guifg=none          guibg=none          gui=none
+hi FloatBorder      guifg=#21eda9       guibg=none          gui=none
 hi Visual           guifg=none          guibg=#303030       gui=none
 hi Comment                                                  gui=italic
-hi helpExample      guifg=#ebdbb2       guibg=#1f1f1f       gui=none
+hi helpExample      guifg=#ebdbb2       guibg=none          gui=none
 
-hi CompeDocumentationBorder  guifg=#21eda9      guibg=#1f1f1f       gui=none
+hi CompeDocumentationBorder  guifg=#21eda9      guibg=none      gui=none
 
 " LSP diagnostic colors
 hi LspDiagnosticsDefaultError       guifg=#f22222
