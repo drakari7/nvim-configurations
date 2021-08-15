@@ -24,7 +24,7 @@ hi LspDiagnosticsDefaultHint        guifg=#29ff7e
 
 " Tree sitter related colors
 " Misc
-" hi TSError        
+" hi TSError
 hi TSPunctDelimiter     guifg=#696969
 hi TSPunctBracket       guifg=#d94311
 " hi TSPunctSpecial
@@ -68,7 +68,7 @@ hi TSOperator           guifg=#de671d
 " hi TSType
 " hi TSTypeBuiltin
 " hi TSStructure
-hi TSInclude            guifg=#5ade18        
+hi TSInclude            guifg=#5ade18
 
 " Variable
 " hi TSVariable

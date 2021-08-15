@@ -8,12 +8,6 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- use {
-    --     'nvim-treesitter/nvim-treesitter',
-    --     branch = '0.5-compat',
-    --     run = ':TSUpdate',
-    -- }
-
-    -- use 'nvim-treesitter/playground'
+    use 'windwp/nvim-autopairs'
 
 end)

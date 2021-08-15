@@ -13,5 +13,13 @@ require('telescope').setup{
           ["<C-k>"] = actions.move_selection_previous,
         },
       },
-  }
+    layout_strategy = 'horizontal',
+    layout_config = {
+        preview_width = 0.55,
+    },
+    path_display = {
+        "absolute",
+        -- shorten = 3,
+    },
+  },
 }

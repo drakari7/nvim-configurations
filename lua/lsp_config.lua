@@ -72,7 +72,7 @@ lsp_signature_cfg = {
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "clangd", "vimls", "tsserver", }
+local servers = { "pyright", "clangd", "vimls", "tsserver", "texlab", "bashls"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,

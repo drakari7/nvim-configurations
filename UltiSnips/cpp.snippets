@@ -4,10 +4,22 @@ snippet pseudo "Add pseudocode"
  */
 endsnippet
 
-snippet v1 "Integer vector" i
+snippet v1 "Integer vector"
 vector<int> ${1}
 endsnippet
 
-snippet v2 "2 dim vector" i
+snippet v2 "2 dim vector" 
 vector<vector<int>> ${1}
+endsnippet
+
+snippet fori "Simple for loop"
+for(int ${2:i}=0; $2 < ${1:n}; $2++){
+	$3
+}
+endsnippet
+
+snippet vinp "Take input in array v"
+for(int i=0; i < n; i++){
+	cin >> v[i];
+}
 endsnippet
