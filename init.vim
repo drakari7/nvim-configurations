@@ -214,6 +214,7 @@ nnoremap <leader>lc :lclose<CR>
 nnoremap <leader>qc :cclose<CR>
 nnoremap <leader>w <C-W><C-W>
 nnoremap gz yi':!open https://github.com/<C-r>"<CR><CR>
+nnoremap <leader>b "_d
 
 " Shortcuts for file tree
 map <leader>nn :NERDTreeTabsToggle<CR>
