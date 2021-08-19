@@ -148,18 +148,18 @@ au FileType cpp     nnoremap <buffer> <leader>rt :w<CR>:!g++ -std=c++17 -Wshadow
 au FileType cpp     nnoremap <buffer> <leader>rf :w<CR>:!g++ -std=c++17 -Wshadow -Wall -O2 -Wno-unused-result % && ./a.out < testfile <CR>
 
 " Open module documentation
-au FileType python  nnoremap <leader>gc yiw:!open https://docs.python.org/3/library/<C-r>".html<CR><CR>
+au FileType python  nnoremap <leader>gc yiw:!xdg-open https://docs.python.org/3/library/<C-r>".html<CR><CR>
 
 " Compiling latex files
 au FileType tex     nnoremap <leader>rr :w<CR>:!pdflatex %<CR>
-au FileType tex     nnoremap <leader>gc yi}:!open https://ctan.org/pkg/<C-r>"<CR><CR>
+au FileType tex     nnoremap <leader>gc yi}:!xdg-open https://ctan.org/pkg/<C-r>"<CR><CR>
 
 " Shortcuts for python
 au Filetype python  nnoremap <leader>p Iprint(<ESC>A)<ESC>
 
 " Open vim plugins in github
-au Filetype vim     nnoremap <leader>gc yi':!open https://github.com/<C-r>"<CR><CR>
-au Filetype lua     nnoremap <leader>gc yi':!open https://github.com/<C-r>"<CR><CR>
+au Filetype vim     nnoremap <leader>gc yi':!xdg-open https://github.com/<C-r>"<CR><CR>
+au Filetype lua     nnoremap <leader>gc yi':!xdg-open https://github.com/<C-r>"<CR><CR>
 "----------------------------------------------------------
 " Plugin options
 "----------------------------------------------------------
@@ -191,6 +191,11 @@ let g:tex_flavor = "latex"
 
 " Nvimtree settings
 let g:nvim_tree_gitignore = 1
+let g:nvim_tree_tab_open = 1
+let g:nvim_tree_auto_open = 1
+let g:nvim_tree_auto_close = 1
+let g:nvim_tree_auto_ignore_ft = ['startify']
+
 " Tagbar options
 let g:tagbar_width = 35
 let g:tagbar_sort = 0
