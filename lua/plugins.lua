@@ -5,9 +5,15 @@
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 
 return require('packer').startup(function(use)
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
+    use 'wbthomason/packer.nvim'            -- Packer manages itself
 
+    -- Functionality plugins
     use 'windwp/nvim-autopairs'
 
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = 'kyazdani42/nvim-web-devicons'
+    }
+
+    use 'famiu/bufdelete.nvim'
 end)

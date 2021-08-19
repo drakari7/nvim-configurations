@@ -1,21 +1,18 @@
 "--------------------Plugins Section -------------------------
 call plug#begin('~/.config/nvim/plugged')
 
+
 " TODO : modernise some plugins which have lua versions
 " Functionality Plugins
-Plug 'preservim/nerdtree'           " NerdTree
-Plug 'jistr/vim-nerdtree-tabs'      " Nerdtree tabs supplement
 Plug 'tpope/vim-unimpaired'         " Symmetric mappings
 Plug 'tpope/vim-commentary'         " Easy comments
 Plug 'tpope/vim-surround'           " change surroundings
-" Plug 'jiangmiao/auto-pairs'         " Bracket auto pairing
 Plug 'mhinz/vim-startify'           " Startpage
 Plug 'vim-syntastic/syntastic'      " Linting
 Plug 'gennaro-tedesco/nvim-peekup'  " Register management
 Plug 'folke/which-key.nvim'         " easy keymap access
 
 " Git integration
-Plug 'Xuyuanp/nerdtree-git-plugin'  " Git addition to nerdtree
 Plug 'airblade/vim-gitgutter'       " Shows changed lines
 Plug 'tpope/vim-fugitive'           " Git commands in nvim
 Plug 'tpope/vim-rhubarb'            " Gives Gbrowse command
@@ -34,8 +31,9 @@ Plug 'nvim-treesitter/playground'   " Testing and queries for treesitter
 " TODO: take a look at treesitter objects
 
 " Miscellaneous and temp
-" Plug 'ryanoasis/vim-devicons'
 Plug 'voldikss/vim-floaterm'
+" Plug 'AckslD/nvim-neoclip.lua'
+" Plug 'noahfrederick/vim-skeleton'
 " TODO: checkout ctrlp
 
 " Color schemes and appearance
@@ -61,6 +59,10 @@ Plug 'vim-airline/vim-airline-themes'
 " Languages
 Plug 'lervag/vimtex'                " Latex
 Plug 'iamcco/markdown-preview.nvim', {'do':{ -> mkdp#util#install()}, 'for':['markdown', 'vim-plug']}
+
+" Nerd icons should be loaded last
+Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 "------------------------------------------------------------
 " Vim native options and settings
@@ -78,13 +80,14 @@ set whichwrap+=<,>,h,l,[,]
 set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab autoindent
 set encoding=utf-8 fileencoding=utf-8 fileformat=unix
 set noshowmode
+set cursorline
 set shortmess+=c
 set clipboard+=unnamedplus
 set ignorecase incsearch
 set pumheight=15                " sets the pmenu height
 set timeoutlen=1000
 " set autochdir
-set scrolloff=7
+set scrolloff=4
 set splitbelow splitright       " split below instead of top
 
 " Setting leader keys
@@ -154,6 +157,9 @@ au FileType tex     nnoremap <leader>gc yi}:!open https://ctan.org/pkg/<C-r>"<CR
 " Shortcuts for python
 au Filetype python  nnoremap <leader>p Iprint(<ESC>A)<ESC>
 
+" Open vim plugins in github
+au Filetype vim     nnoremap <leader>gc yi':!open https://github.com/<C-r>"<CR><CR>
+au Filetype lua     nnoremap <leader>gc yi':!open https://github.com/<C-r>"<CR><CR>
 "----------------------------------------------------------
 " Plugin options
 "----------------------------------------------------------
@@ -183,11 +189,8 @@ let g:syntastic_quiet_messages = {
 let g:tex_flavor = "latex"
 " let g:vimtex_view_general_viewer = "zathura"
 
-" Nerdtree settings
-let g:NERDTreeDirArrowExpandable = '-'
-let g:NERDTreeMinimalUI = 1
-let NERDTreeWinSize = 25
-
+" Nvimtree settings
+let g:nvim_tree_gitignore = 1
 " Tagbar options
 let g:tagbar_width = 35
 let g:tagbar_sort = 0
@@ -213,16 +216,15 @@ lua require('nvim-peekup.config').on_keystroke["delay"] = ''
 nnoremap <silent> <space> :noh<CR><space>
 nnoremap Y y$
 nnoremap <leader>sv :so $MYVIMRC<CR>
-nnoremap <leader>vc :tabe ~/.config/nvim/init.vim<CR>
+nnoremap <leader>vc :e ~/.config/nvim/init.vim<CR>
 nnoremap <leader>sh :!cp ~/custom_headers_cpp/* .<CR><CR>
 nnoremap <leader>lc :lclose<CR>
 nnoremap <leader>qc :cclose<CR>
 nnoremap <leader>w <C-W><C-W>
-nnoremap gz yi':!open https://github.com/<C-r>"<CR><CR>
 nnoremap <leader>b "_d
 vnoremap <leader>b "_d
 nnoremap <leader>ya ggVGy
-nnoremap gb :ls<CR>:b
+nnoremap gb :ls<CR>:b<space>
 
 " Move text around
 vnoremap J :m '>+1<CR>gv=gv
@@ -237,8 +239,8 @@ nnoremap <leader>tg :FloatermToggle<CR>
 tnoremap <leader>tg <C-\><C-n>:FloatermToggle<CR>
 
 " Shortcuts for file tree
-map <leader>nn :NERDTreeTabsToggle<CR>
-map <leader>nf :NERDTreeFocus<CR>
+nnoremap <leader>nn :NvimTreeToggle<CR>
+nnoremap <leader>nr :NvimTreeRefresh<CR>
 
 " Tag list toggle
 map <leader>ta :TagbarToggle<CR>
@@ -253,6 +255,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fv <cmd>lua require('telescope_conf').nvim_config_files()<CR>
 
 " Syntastic mappings
 nnoremap <leader>sc :SyntasticCheck<CR>
@@ -265,5 +268,5 @@ nnoremap <leader>hi :TSHighlightCapturesUnderCursor<CR>
 nnoremap <leader>ot :call <SID>NewTestFile()<CR>
 function! <SID>NewTestFile()
     let l:test_file = 'test.' . expand('%:e')
-    execute ":tabe " . l:test_file
+    execute ":e " . l:test_file
 endfunc
