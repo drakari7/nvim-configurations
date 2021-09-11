@@ -21,6 +21,7 @@ local function on_attach(client, bufnr)
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = 'rounded'})
   vim.lsp.handlers["textDocument/signature_help"] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = 'rounded'})
 
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = false,})
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
@@ -46,7 +47,7 @@ local function on_attach(client, bufnr)
 end
 
 -- lsp_signature options and settings
-lsp_signature_cfg = {
+local lsp_signature_cfg = {
   bind = true, -- This is mandatory, otherwise border config won't get registered.
                -- If you want to hook lspsaga or other signature handler, pls set to false
   doc_lines = 7, -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
@@ -54,20 +55,20 @@ lsp_signature_cfg = {
                  -- This setting only take effect in insert mode, it does not affect signature help in normal
                  -- mode, 10 by default
 
-  floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
+  floating_window = false, -- show hint in a floating window, set to false for virtual text only mode
   fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
-  hint_enable = false, -- virtual hint enable
+  hint_enable = true, -- virtual hint enable
   hint_prefix = "> ",  -- angular bracket for parameter
   hint_scheme = "String",
   use_lspsaga = false,  -- set to true if you want to use lspsaga popup
   hi_parameter = "Search", -- how your parameter will be highlight
-  max_height = 12, -- max height of signature floating_window, if content is more than max_height, you can scroll down
+  max_height = 3, -- max height of signature floating_window, if content is more than max_height, you can scroll down
                    -- to view the hiding contents
-  max_width = 70, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+  max_width = 40, -- max_width of signature floating_window, line will be wrapped if exceed max_width
   handler_opts = {
     border = "single"   -- double, single, shadow, none
   },
-  extra_trigger_chars = {"(", ","} -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
+  extra_trigger_chars = {} -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
 }
 
 -- Use a loop to conveniently call 'setup' on multiple servers and

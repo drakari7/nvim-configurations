@@ -9,11 +9,15 @@ return require('packer').startup(function(use)
 
     -- Functionality plugins
     use 'windwp/nvim-autopairs'
+    use 'famiu/bufdelete.nvim'
 
     use {
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons'
     }
 
-    use 'famiu/bufdelete.nvim'
+    use 'mfussenegger/nvim-dap'
+    -- use 'mfussenegger/nvim-dap-python'
+
+
 end)
