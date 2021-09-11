@@ -1,21 +1,19 @@
 "--------------------Plugins Section -------------------------
 call plug#begin('~/.config/nvim/plugged')
 
+
 " TODO : modernise some plugins which have lua versions
 " Functionality Plugins
-Plug 'preservim/nerdtree'           " NerdTree
-Plug 'jistr/vim-nerdtree-tabs'      " Nerdtree tabs supplement
 Plug 'tpope/vim-unimpaired'         " Symmetric mappings
 Plug 'tpope/vim-commentary'         " Easy comments
-Plug 'tpope/vim-surround'           " For brackets
-Plug 'jiangmiao/auto-pairs'         " Bracket auto pairing
+Plug 'tpope/vim-surround'           " change surroundings
+Plug 'tpope/vim-repeat'             " For repeating stuff
 Plug 'mhinz/vim-startify'           " Startpage
 Plug 'vim-syntastic/syntastic'      " Linting
 Plug 'gennaro-tedesco/nvim-peekup'  " Register management
 Plug 'folke/which-key.nvim'         " easy keymap access
 
 " Git integration
-Plug 'Xuyuanp/nerdtree-git-plugin'  " Git addition to nerdtree
 Plug 'airblade/vim-gitgutter'       " Shows changed lines
 Plug 'tpope/vim-fugitive'           " Git commands in nvim
 Plug 'tpope/vim-rhubarb'            " Gives Gbrowse command
@@ -34,7 +32,10 @@ Plug 'nvim-treesitter/playground'   " Testing and queries for treesitter
 " TODO: take a look at treesitter objects
 
 " Miscellaneous and temp
-" Plug 'ryanoasis/vim-devicons'
+Plug 'voldikss/vim-floaterm'
+Plug 'tyru/open-browser.vim'
+" Plug 'noahfrederick/vim-skeleton'
+" TODO: checkout ctrlp
 
 " Color schemes and appearance
 Plug 'sainnhe/sonokai'
@@ -44,45 +45,83 @@ Plug 'rrethy/vim-hexokinase',   {'do': 'make hexokinase'}
 Plug 'octol/vim-cpp-enhanced-highlight'
 
 " Tags
+" TODO : vista.vim
 Plug 'preservim/tagbar'             " Tags implementation
 Plug 'ludovicchabant/vim-gutentags' " generates tags
 
 " File finding
 Plug 'nvim-lua/popup.nvim'          " Telescope dependency
 Plug 'nvim-lua/plenary.nvim'        " Telescope dependency
-Plug 'nvim-telescope/telescope.nvim' "File finder and grep 
+Plug 'nvim-telescope/telescope.nvim' "File finder and grep
 
 " Statusline
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Languages
 Plug 'lervag/vimtex'                " Latex
 Plug 'iamcco/markdown-preview.nvim', {'do':{ -> mkdp#util#install()}, 'for':['markdown', 'vim-plug']}
+
+" Nerd icons should be loaded last
+Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 "------------------------------------------------------------
 " Vim native options and settings
 "------------------------------------------------------------
-
 " Setting the neovim color scheme
 set termguicolors
 syntax enable
 colorscheme gruvbox
 
 " Some basic options
-set number 
+" TODO: lookup wildmenu, also shada
+set number
+set hidden
 set whichwrap+=<,>,h,l,[,]
-set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab autoindent 
+
+" Tabs
+set autoindent
+set cindent
+set wrap
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+set breakindent
+set linebreak
+set showbreak=+++ 
+
 set encoding=utf-8 fileencoding=utf-8 fileformat=unix
 set noshowmode
+" set cursorline
 set shortmess+=c
 set clipboard+=unnamedplus
 set ignorecase incsearch
 set pumheight=15                " sets the pmenu height
+set pumblend=10
 set timeoutlen=1000
-let mapleader= ","
+" set autochdir
+set scrolloff=5
+set splitbelow splitright       " split below instead of top
+set conceallevel=1
 
-" Split below by default instead of on top
-set splitbelow splitright
+" listchars
+set list
+set lcs=
+set lcs+=eol:¬
+set lcs+=tab:»·
+set lcs+=trail:·
+set lcs+=extends:<
+set lcs+=precedes:>
+set lcs+=conceal:┊
+set lcs+=nbsp:␣
+
+" Setting leader keys
+let mapleader= ","
+let maplocalleader = ","
 
 " Mouse options
 set mouse=a
@@ -96,14 +135,18 @@ filetype plugin indent on
 source ~/.config/nvim/after/colors.vim
 " source ~/.config/nvim/after/search.vim
 
-lua require('plugins')
-lua require('lsp_config')
-lua require('compe_config')
-lua require('tree_sitter')
-lua require('lsp_saga')
-lua require('which_key')
-lua require('telescope_conf')
-lua require('neorg_conf')
+" Airline settings
+source ~/.config/nvim/after/airline.vim
+
+lua require('confs.dap')
+lua require('confs.plugins')
+lua require('confs.lsp_config')
+lua require('confs.compe')
+lua require('confs.tree_sitter')
+lua require('confs.lsp_saga')
+lua require('confs.which_key')
+lua require('confs.telescope')
+lua require('confs.autopairs')
 "------------------------------------------------------------
 " Language specific settings here
 "------------------------------------------------------------
@@ -118,36 +161,34 @@ let g:cpp_class_decl_highlight = 1
 let g:tex_flavor = "latex"
 
 " Templates for different types of files
-autocmd BufNewFile *.cpp            0r ~/.config/nvim/templates/skeleton.cpp
-autocmd BufNewFile *.c              0r ~/.config/nvim/templates/skeleton.c
-autocmd BufNewFile *.tex            0r ~/.config/nvim/templates/skeleton.tex
-autocmd BufNewFile *.py             0r ~/.config/nvim/templates/skeleton.py
-autocmd BufNewFile ~/cp/cf/*.cpp    %delete|0r ~/.config/nvim/templates/cf_skel.cpp
+au BufNewFile *.cpp             0r ~/.config/nvim/templates/skeleton.cpp
+au BufNewFile *.c               0r ~/.config/nvim/templates/skeleton.c
+au BufNewFile *.tex             0r ~/.config/nvim/templates/skeleton.tex
+au BufNewFile *.py              0r ~/.config/nvim/templates/skeleton.py
+au BufNewFile ~/cp/cf/*.cpp     %delete|0r ~/.config/nvim/templates/cf_skel.cpp
 
 " Executing code from within nvim
-autocmd BufWinEnter *.py nnoremap <leader>rr :w<CR>:!python3 %<CR>
-autocmd BufWinEnter *.sh nnoremap <leader>rr :w<CR>:!sh %<CR>
-autocmd BufWinEnter *.c nnoremap <leader>rr :w<CR>:!gcc % && ./a.out<CR>
-autocmd BufWinEnter *.cpp nnoremap <leader>rr :w<CR>:!g++ -std=c++17 % && ./a.out<CR>
+au FileType python  nnoremap <buffer> <leader>rr :w<CR>:!python3 %<CR>
+au FileType sh      nnoremap <buffer> <leader>rr :w<CR>:!sh %<CR>
+au FileType c       nnoremap <buffer> <leader>rr :w<CR>:!gcc % && ./a.out<CR>
 
-" Run with a testcase
-autocmd BufWinEnter *.cpp nnoremap <leader>rt :w<CR>:!g++ -std=c++17 % && ./a.out < testfile<CR>
+" CPP different flag runs for CP
+au FileType cpp     nnoremap <buffer> <leader>rr :w<CR>:!g++ -std=c++17 -Wshadow -Wall -O2 % && ./a.out<CR>
+au FileType cpp     nnoremap <buffer> <leader>rt :w<CR>:!g++ -std=c++17 -Wshadow -Wall -O2 % && ./a.out < testfile<CR>
 
 " Open module documentation
-autocmd BufWinEnter *.py nnoremap gc yiw:!open https://docs.python.org/3/library/<C-r>".html<CR><CR>
+au FileType python  nnoremap <leader>gc yiw:!open https://docs.python.org/3/library/<C-r>".html<CR><CR>
 
 " Compiling latex files
-autocmd BufWinEnter *.tex nnoremap <leader>r :w<CR>:!pdflatex %<CR>
+au FileType tex     nnoremap <leader>gc yi}:!open https://ctan.org/pkg/<C-r>"<CR><CR>
+au FileType tex     nnoremap <leader>ls :VimtexCompileSS<CR>
 
-" shortcuts for c
-autocmd BufWinEnter *.c nnoremap <leader>; A;<ESC>
-autocmd BufWinEnter *.c inoremap <leader>; <ESC>A;<ESC>o
-autocmd BufWinEnter *.cpp nnoremap <leader>; A;<ESC>
-autocmd BufWinEnter *.cpp inoremap <leader>; <ESC>A;<ESC>o
+" Shortcuts for python
+au Filetype python  nnoremap <leader>p Iprint(<ESC>A)<ESC>
 
-" Shortcuts for python 
-autocmd BufWinEnter *.py nnoremap <leader>p Iprint(<ESC>A)<ESC>
-
+" Open vim plugins in github
+au Filetype vim     nnoremap <leader>gc yi':!open https://github.com/<C-r>"<CR><CR>
+au Filetype lua     nnoremap <leader>gc yi':!open https://github.com/<C-r>"<CR><CR>
 "----------------------------------------------------------
 " Plugin options
 "----------------------------------------------------------
@@ -156,18 +197,6 @@ let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader>z"
 let g:UltiSnipsJumpBackwardTrigger="<leader>Z"
 let UltiSnipsEditSplit="vertical"
-
-" Setting statusline with lightline
-let g:lightline = {
-            \ 'colorscheme': 'powerlineish',
-            \ 'active': {
-            \   'left': [   [ 'mode', 'paste' ],
-            \               [ 'readonly', 'filename', 'syntastic', 'modified' ] ]
-            \ },
-            \ 'component_function': {
-            \   'syntastic': 'SyntasticStatuslineFlag'
-            \ },
-            \ }
 
 " Syntastic Settings
 let g:syntastic_always_populate_loc_list = 1
@@ -185,10 +214,66 @@ let g:syntastic_quiet_messages = {
     \ "regex": ['docstring']
     \}
 
-" Nerdtree settings
-let g:NERDTreeDirArrowExpandable = '-'
-let g:NERDTreeMinimalUI = 1
-let NERDTreeWinSize = 25
+" Vimtex options
+let g:tex_flavor = "latex"
+" let g:vimtex_view_general_viewer = "zathura"
+let g:vimtex_quickfix_ignore_filters = [
+    \ 'Underfull',
+    \ 'Overfull',
+    \]
+
+" Nvimtree settings
+let g:nvim_tree_gitignore = 1
+let g:nvim_tree_tab_open = 1
+let g:nvim_tree_auto_open = 1
+let g:nvim_tree_auto_close = 1
+let g:nvim_tree_auto_ignore_ft = ['startify']
+
+" Floatterm options
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.8
+
+" Startify options
+let g:startify_custom_header = 'startify#fortune#quote()'
+let g:startify_session_persistence = 1
+let g:startify_change_to_vcs_root = 1
+let g:startify_lists = [
+            \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+            \ { 'type': 'sessions',  'header': ['   Sessions']       },
+            \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+            \ { 'type': 'files',     'header': ['   MRU']            },
+            \ { 'type': 'commands',  'header': ['   Commands']       },
+            \ ]
+let g:startify_bookmarks = [
+            \ {'c': '~/.config/nvim/init.vim'},
+            \ {'p': '~/.config/nvim/lua/confs/plugins.lua'},
+            \ ]
+
+" Nvim dap options
+nnoremap <silent> <leader>db :lua require'dap'.continue()<CR>
+nnoremap <silent> <leader>so :lua require'dap'.step_over()<CR>
+nnoremap <silent> <leader>si :lua require'dap'.step_into()<CR>
+
+nnoremap <silent> <leader>br :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <leader>bc :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
+
+" Tagbar options
+let g:tagbar_width = 35
+let g:tagbar_sort = 0
+let g:tagbar_compact = 1
+
+" Gutentags options
+let g:gutentags_ctags_exclude_wildignore = 1
+let g:gutentags_ctags_exclude = [
+  \'node_modules', '_build', 'build', 'CMakeFiles', '.mypy_cache', 'venv',
+  \'*.md', '*.tex', '*.css', '*.html', '*.json', '*.xml', '*.xmls', '*.ui']
+
+" Openbrowser settings
+let g:netrw_nogx = 1
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
 
 " Git gutter
 hi GitGutterAdd     guifg=#009900   ctermfg=Green
@@ -208,19 +293,47 @@ lua require('nvim-peekup.config').on_keystroke["delay"] = ''
 "-----------------------------------------------------------
 " General purpose vim shortcuts
 nnoremap <silent> <space> :noh<CR><space>
-nnoremap <leader>sv :source $MYVIMRC<CR>
-nnoremap <leader>vc :tabe ~/.config/nvim/init.vim<CR>
+nnoremap Y y$
+nnoremap <leader>sv :so $MYVIMRC<CR>
+nnoremap <leader>vc :e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>pc :e ~/.config/nvim/lua/confs/plugins.lua<CR>
+nnoremap <leader>sh :!cp ~/custom_headers_cpp/* .<CR><CR>
 nnoremap <leader>lc :lclose<CR>
 nnoremap <leader>qc :cclose<CR>
 nnoremap <leader>w <C-W><C-W>
-nnoremap gz yi':!open https://github.com/<C-r>"<CR><CR>
+nnoremap <leader>bb "_d
+vnoremap <leader>bb "_d
+nnoremap <leader>ya mmggVGy'm
+nnoremap <leader>yl mm/class Solution<CR>V$%y'm:noh<CR>
+nnoremap gb :ls<CR>:b<space>
+nnoremap <leader>bd :Bd<CR>
+nnoremap <leader>gs :OpenBrowserSearch -google<space>
+
+" Better navigation
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap ]c ]czz
+nnoremap [c [czz
+
+
+" Move text around
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+inoremap <C-j> <esc>:m .+1<CR>==
+inoremap <C-k> <esc>:m .-2<CR>==
+nnoremap <leader>j :m .+1<CR>==
+nnoremap <leader>k :m .-2<CR>==
+
+" For floatterm
+nnoremap <leader>tg :FloatermToggle<CR>
+tnoremap <leader>tg <C-\><C-n>:FloatermToggle<CR>
 
 " Shortcuts for file tree
-map <leader>nn :NERDTreeTabsToggle<CR>
-map <leader>nf :NERDTreeFocus<CR>
+nnoremap <leader>nn :NvimTreeToggle<CR>
+nnoremap <leader>nr :NvimTreeRefresh<CR>
 
 " Tag list toggle
-map <leader>t :TagbarToggle<CR>
+map <leader>ta :TagbarToggle<CR>
 
 " Git gutter
 nmap ]h <Plug>(GitGutterNextHunk)
@@ -232,6 +345,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fv <cmd>lua require('confs.telescope').nvim_config_files()<CR>
 
 " Syntastic mappings
 nnoremap <leader>sc :SyntasticCheck<CR>
@@ -240,12 +354,9 @@ nnoremap <leader>sc :SyntasticCheck<CR>
 nnoremap <leader>hi :TSHighlightCapturesUnderCursor<CR>
 
 "------------------Miscellaneous----------------------------
-" Show highlight group for word under cursor
-nmap <C-S-T> :call <SID>SynStack()<CR>
-
-function! <SID>SynStack()
-    if !exists("*synstack")
-        return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+" Open test file
+nnoremap <leader>ot :call <SID>NewTestFile()<CR>
+function! <SID>NewTestFile()
+    let l:test_file = 'test.' . expand('%:e')
+    execute ":e " . l:test_file
 endfunc
