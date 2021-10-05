@@ -1,6 +1,4 @@
-local which_key = require'which-key'
-
-which_key.setup{
+require'which-key'.setup{
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
     registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -29,6 +27,9 @@ which_key.setup{
     -- ["<space>"] = "SPC",
     -- ["<cr>"] = "RET",
     -- ["<tab>"] = "TAB",
+  },
+  motions = {
+      count = false,
   },
   icons = {
     breadcrumb = "", -- symbol used in the command line area that shows your active key combo
@@ -60,3 +61,37 @@ which_key.setup{
     v = { "j", "k" },
   },
 }
+
+local marks = require('which-key.plugins.marks')
+
+marks.actions = {
+  { trigger = "`", mode = "n", delay = true },
+  { trigger = "'", mode = "n", delay = true},
+  { trigger = "g`", mode = "n", delay = true },
+  { trigger = "g'", mode = "n", delay = true },
+}
+
+function marks.setup(_wk, _config, options)
+  for _, action in ipairs(marks.actions) do
+    if not action.delay then
+      table.insert(options.triggers_nowait, action.trigger)
+    end
+  end
+end
+
+local regs = require'which-key.plugins.registers'
+
+regs.actions = {
+  { trigger = '"', mode = "n" },
+  { trigger = "@", mode = "n", delay = true },
+  { trigger = "<c-r>", mode = "i" },
+  { trigger = "<c-r>", mode = "c" },
+}
+
+function regs.setup(_wk, _config, options)
+  for _, action in ipairs(regs.actions) do
+    if not action.delay then
+        table.insert(options.triggers_nowait, action.trigger)
+    end
+  end
+end
