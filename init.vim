@@ -1,7 +1,6 @@
 "--------------------Plugins Section -------------------------
 call plug#begin('~/.config/nvim/plugged')
 
-
 " TODO : modernise some plugins which have lua versions
 " Functionality Plugins
 Plug 'tpope/vim-unimpaired'         " Symmetric mappings
@@ -47,7 +46,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 " Tags
 " TODO : vista.vim
 Plug 'preservim/tagbar'             " Tags implementation
-Plug 'ludovicchabant/vim-gutentags' " generates tags
+" Plug 'ludovicchabant/vim-gutentags' " generates tags
 
 " File finding
 Plug 'nvim-lua/popup.nvim'          " Telescope dependency
@@ -147,6 +146,7 @@ lua require('confs.lsp_saga')
 lua require('confs.which_key')
 lua require('confs.telescope')
 lua require('confs.autopairs')
+lua require('confs.nvimtree')
 "------------------------------------------------------------
 " Language specific settings here
 "------------------------------------------------------------
@@ -230,12 +230,12 @@ let g:vimtex_quickfix_ignore_filters = [
     \ 'Overfull',
     \]
 
-" Nvimtree settings
-let g:nvim_tree_gitignore = 1
-let g:nvim_tree_tab_open = 1
-let g:nvim_tree_auto_open = 1
-let g:nvim_tree_auto_close = 1
-let g:nvim_tree_auto_ignore_ft = ['startify']
+" Nvimtree settings (migrated to lua file)
+" let g:nvim_tree_gitignore = 1
+" let g:nvim_tree_tab_open = 1
+" let g:nvim_tree_auto_open = 1
+" let g:nvim_tree_auto_close = 1
+" let g:nvim_tree_auto_ignore_ft = ['startify']
 
 " Floatterm options
 let g:floaterm_width = 0.8
