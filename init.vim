@@ -161,11 +161,8 @@ let g:cpp_class_decl_highlight = 1
 let g:tex_flavor = "latex"
 
 " Templates for different types of files
-au BufNewFile *.cpp             0r ~/.config/nvim/templates/skeleton.cpp
 au BufNewFile *.c               0r ~/.config/nvim/templates/skeleton.c
 au BufNewFile *.tex             0r ~/.config/nvim/templates/skeleton.tex
-au BufNewFile *.py              0r ~/.config/nvim/templates/skeleton.py
-au BufNewFile ~/cp/cf/*.cpp     %delete|0r ~/.config/nvim/templates/cf_skel.cpp
 
 " Executing code from within nvim
 au FileType python  nnoremap <buffer> <leader>rr :w<CR>:!python3 %<CR>
@@ -256,6 +253,7 @@ let g:startify_bookmarks = [
             \ {'c': '~/.config/nvim/init.vim'},
             \ {'p': '~/.config/nvim/lua/confs/plugins.lua'},
             \ {'n': '~/notes/todo.md'},
+            \ {'pl': '~/notes/placement.md'},
             \ {'tc': '~/random/test.cpp'},
             \ {'tp': '~/random/test.py'},
             \ ]

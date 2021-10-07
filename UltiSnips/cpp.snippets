@@ -1,15 +1,13 @@
 snippet pseudo "Add pseudocode"
 /*  Psuedocode
- *      -$1
- */
+*      -$1
+*/
 endsnippet
 
 snippet v1 "Integer vector"
 vector<int> ${1}
 endsnippet
-
-snippet v2 "2 dim vector" 
-vector<vector<int>> ${1}
+snippet v2 "2 dim vector" vector<vector<int>> ${1}
 endsnippet
 
 snippet fori "Simple for loop"
@@ -26,4 +24,49 @@ endsnippet
 
 snippet printxy "Print 2 variables with space"
 cout << ${1:x} << ' ' << ${2:y} << endl;
+endsnippet
+
+
+snippet c++ "Standard c++ snippet"
+#include<iostream>
+
+int main(){
+	$1
+
+	return 0;
+}
+endsnippet
+
+snippet cp "Competitive programming snippet"
+#include<bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+typedef long long ll;
+
+int main(){
+	$1
+
+	return 0;
+}
+endsnippet
+
+snippet cf "Codeforces snippet"
+#include<bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+typedef long long ll;
+
+void solve(){
+	$1
+}
+
+int main(){
+	int t; cin >> t;
+
+	while(t--){
+		solve();
+	}
+
+	return 0;
+}
 endsnippet
