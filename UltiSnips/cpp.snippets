@@ -7,7 +7,9 @@ endsnippet
 snippet v1 "Integer vector"
 vector<int> ${1}
 endsnippet
-snippet v2 "2 dim vector" vector<vector<int>> ${1}
+
+snippet v2 "2 dim vector"
+vector<vector<int>> ${1}
 endsnippet
 
 snippet fori "Simple for loop"
@@ -61,11 +63,29 @@ void solve(){
 }
 
 int main(){
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+
 	int t; cin >> t;
 
 	while(t--){
 		solve();
 	}
+
+	return 0;
+}
+endsnippet
+
+snippet lc "Leetcode snippet"
+#include<bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+typedef long long ll;
+
+$1
+
+int main(){
+	Solution a;
 
 	return 0;
 }
