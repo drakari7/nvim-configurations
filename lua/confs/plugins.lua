@@ -11,13 +11,18 @@ return require('packer').startup(function(use)
     use 'windwp/nvim-autopairs'
     use 'famiu/bufdelete.nvim'
 
-    use {
-        'kyazdani42/nvim-tree.lua',
+    use {'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons'
     }
 
     use 'mfussenegger/nvim-dap'
+    use 'rcarriga/nvim-dap-ui'
     -- use 'mfussenegger/nvim-dap-python'
 
+    use {'kristijanhusak/orgmode.nvim',
+        config = function()
+            require('orgmode').setup{}
+        end
+    }
 
 end)

@@ -1,7 +1,6 @@
 "--------------------Plugins Section -------------------------
 call plug#begin('~/.config/nvim/plugged')
 
-
 " TODO : modernise some plugins which have lua versions
 " Functionality Plugins
 Plug 'tpope/vim-unimpaired'         " Symmetric mappings
@@ -47,7 +46,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 " Tags
 " TODO : vista.vim
 Plug 'preservim/tagbar'             " Tags implementation
-Plug 'ludovicchabant/vim-gutentags' " generates tags
+" Plug 'ludovicchabant/vim-gutentags' " generates tags
 
 " File finding
 Plug 'nvim-lua/popup.nvim'          " Telescope dependency
@@ -92,7 +91,7 @@ set expandtab
 
 set breakindent
 set linebreak
-set showbreak=+++ 
+set showbreak=>
 
 set encoding=utf-8 fileencoding=utf-8 fileformat=unix
 set noshowmode
@@ -147,6 +146,7 @@ lua require('confs.lsp_saga')
 lua require('confs.which_key')
 lua require('confs.telescope')
 lua require('confs.autopairs')
+lua require('confs.nvimtree')
 "------------------------------------------------------------
 " Language specific settings here
 "------------------------------------------------------------
@@ -161,11 +161,8 @@ let g:cpp_class_decl_highlight = 1
 let g:tex_flavor = "latex"
 
 " Templates for different types of files
-au BufNewFile *.cpp             0r ~/.config/nvim/templates/skeleton.cpp
 au BufNewFile *.c               0r ~/.config/nvim/templates/skeleton.c
 au BufNewFile *.tex             0r ~/.config/nvim/templates/skeleton.tex
-au BufNewFile *.py              0r ~/.config/nvim/templates/skeleton.py
-au BufNewFile ~/cp/cf/*.cpp     %delete|0r ~/.config/nvim/templates/cf_skel.cpp
 
 " Executing code from within nvim
 au FileType python  nnoremap <buffer> <leader>rr :w<CR>:!python3 %<CR>
@@ -175,9 +172,13 @@ au FileType c       nnoremap <buffer> <leader>rr :w<CR>:!gcc % && ./a.out<CR>
 " CPP different flag runs for CP
 au FileType cpp     nnoremap <buffer> <leader>rr :w<CR>:!g++ -std=c++17 -Wshadow -Wall -O2 % && ./a.out<CR>
 au FileType cpp     nnoremap <buffer> <leader>rt :w<CR>:!g++ -std=c++17 -Wshadow -Wall -O2 % && ./a.out < testfile<CR>
+au FileType cpp     nnoremap <buffer> <leader>rc :w<CR>:!g++ -g -std=c++17 %<CR>
 
 " Open module documentation
 au FileType python  nnoremap <leader>gc yiw:!open https://docs.python.org/3/library/<C-r>".html<CR><CR>
+
+" Open help for options in vimrc
+au FileType vim     nnoremap <leader>gc yiw:vert h <C-r>"<CR>
 
 " Compiling latex files
 au FileType tex     nnoremap <leader>gc yi}:!open https://ctan.org/pkg/<C-r>"<CR><CR>
@@ -187,8 +188,12 @@ au FileType tex     nnoremap <leader>ls :VimtexCompileSS<CR>
 au Filetype python  nnoremap <leader>p Iprint(<ESC>A)<ESC>
 
 " Open vim plugins in github
+au Filetype vim     nnoremap <leader>gh yiw:vert h <C-r>"<CR>
 au Filetype vim     nnoremap <leader>gc yi':!open https://github.com/<C-r>"<CR><CR>
 au Filetype lua     nnoremap <leader>gc yi':!open https://github.com/<C-r>"<CR><CR>
+
+" Open Markdown preview
+au Filetype markdown nnoremap <leader>mp :MarkdownPreviewToggle<CR>
 "----------------------------------------------------------
 " Plugin options
 "----------------------------------------------------------
@@ -222,12 +227,12 @@ let g:vimtex_quickfix_ignore_filters = [
     \ 'Overfull',
     \]
 
-" Nvimtree settings
-let g:nvim_tree_gitignore = 1
-let g:nvim_tree_tab_open = 1
-let g:nvim_tree_auto_open = 1
-let g:nvim_tree_auto_close = 1
-let g:nvim_tree_auto_ignore_ft = ['startify']
+" Nvimtree settings (migrated to lua file)
+" let g:nvim_tree_gitignore = 1
+" let g:nvim_tree_tab_open = 1
+" let g:nvim_tree_auto_open = 1
+" let g:nvim_tree_auto_close = 1
+" let g:nvim_tree_auto_ignore_ft = ['startify']
 
 " Floatterm options
 let g:floaterm_width = 0.8
@@ -247,17 +252,12 @@ let g:startify_lists = [
 let g:startify_bookmarks = [
             \ {'c': '~/.config/nvim/init.vim'},
             \ {'p': '~/.config/nvim/lua/confs/plugins.lua'},
+            \ {'n': '~/notes/todo.md'},
+            \ {'pl': '~/notes/placement.md'},
+            \ {'tc': '~/random/test.cpp'},
+            \ {'tp': '~/random/test.py'},
             \ ]
 
-" Nvim dap options
-nnoremap <silent> <leader>db :lua require'dap'.continue()<CR>
-nnoremap <silent> <leader>so :lua require'dap'.step_over()<CR>
-nnoremap <silent> <leader>si :lua require'dap'.step_into()<CR>
-
-nnoremap <silent> <leader>br :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <leader>bc :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
 
 " Tagbar options
 let g:tagbar_width = 35
@@ -297,6 +297,7 @@ nnoremap Y y$
 nnoremap <leader>sv :so $MYVIMRC<CR>
 nnoremap <leader>vc :e ~/.config/nvim/init.vim<CR>
 nnoremap <leader>pc :e ~/.config/nvim/lua/confs/plugins.lua<CR>
+nnoremap <leader>nc :e ~/notes/todo.md<CR>
 nnoremap <leader>sh :!cp ~/custom_headers_cpp/* .<CR><CR>
 nnoremap <leader>lc :lclose<CR>
 nnoremap <leader>qc :cclose<CR>
@@ -314,7 +315,6 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap ]c ]czz
 nnoremap [c [czz
-
 
 " Move text around
 vnoremap J :m '>+1<CR>gv=gv
@@ -340,6 +340,18 @@ nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 nnoremap <leader>hp :GitGutterPreviewHunk<CR>
 
+" Nvim dap mappings
+nnoremap <silent> <leader>dn :lua require'dap'.continue()<CR>
+nnoremap <silent> <leader>sn :lua require'dap'.step_over()<CR>
+nnoremap <silent> <leader>si :lua require'dap'.step_into()<CR>
+nnoremap <silent> <leader>so :lua require'dap'.step_out()<CR>
+nnoremap <silent> <leader>dc :lua require'dap'.close()<CR>
+
+nnoremap <silent> <leader>br :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
+" Nvim dap ui mappings
+nnoremap <silent> <leader>dt :lua require'dapui'.toggle()<CR>
+
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
@@ -358,5 +370,5 @@ nnoremap <leader>hi :TSHighlightCapturesUnderCursor<CR>
 nnoremap <leader>ot :call <SID>NewTestFile()<CR>
 function! <SID>NewTestFile()
     let l:test_file = 'test.' . expand('%:e')
-    execute ":e " . l:test_file
+    execute ":e ~/random/" . l:test_file
 endfunc
