@@ -1,3 +1,5 @@
+vim.g.nvim_tree_indent_markers = 1
+
 require'nvim-tree'.setup {
   disable_netrw       = true,
   hijack_netrw        = true,
@@ -22,12 +24,20 @@ require'nvim-tree'.setup {
   },
   view = {
     width = 30,
-    height = 30,
     side = 'left',
-    auto_resize = false,
+    auto_resize = true,
     mappings = {
       custom_only = false,
       list = {}
     }
-  }
+  },
+  git = {
+    enable = false,
+  },
+  filters = {
+    dotfiles = true,
+    custom = {
+      '__pycache__',
+    }
+  },
 }

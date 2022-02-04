@@ -1,6 +1,7 @@
 " Overwrites the color scheme
 " Background is 1f1f1f
 " temp color #ebdbb2
+colorscheme gruvbox
 let background = "#1f1f1f"
 
 hi Normal           guifg=#efefef       guibg=#1f1f1f       gui=none
@@ -34,7 +35,7 @@ hi TSPunctBracket       guifg=#d94311
 " hi TSConstBuiltin
 " hi TSConstMacro
 " hi TSStringRegex
-hi TSString             guifg=#AFD787
+hi TSString             guifg=#b8bb26
 hi TSStringEscape       guifg=#619fff
 hi TSCharacter          guifg=#63ffb9
 hi TSNumber             guifg=#e9875f

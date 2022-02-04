@@ -22,10 +22,14 @@ require('telescope').setup{
     --     -- shorten = 3,
     -- },
   },
+
 }
 
-local M = {}
+-- Loading extensions
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('file_browser')
 
+local M = {}
 
 function M.nvim_config_files()
     require('telescope.builtin').find_files{
