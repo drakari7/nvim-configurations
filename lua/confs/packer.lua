@@ -5,48 +5,56 @@
 vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 
 return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'            -- Packer manages itself
+  use 'wbthomason/packer.nvim'              -- Packer manages itself
 
   -- LSP and nvim core
-  use 'neovim/nvim-lspconfig'             -- Basic LSP plugin
+  use 'neovim/nvim-lspconfig'               -- Basic LSP plugin
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
-  -- use {'nvim-treesitter/nvim-treesitter', -- TODO: Messes with colors
-  --   run = ':TSUpdate'
-  -- }
-  -- use 'nvim-treesitter/playground'        -- Testing and queries for treesitter
+  use {'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
+  use 'nvim-treesitter/playground'
 
   -- Functionality plugins
-  use 'windwp/nvim-autopairs'             -- Autoclose brackets
-  use 'famiu/bufdelete.nvim'              -- Delete buffers nicely
-  use 'tyru/open-browser.vim'             -- Open links with gx
-  use 'tpope/vim-unimpaired'              -- Symmetric mappings
-  -- Alternate commnent.nvim?
-  use 'tpope/vim-commentary'              -- Easy comments
-  use 'tpope/vim-surround'                -- change surroundings
-  use 'tpope/vim-repeat'                  -- For repeating stuff
-  use 'mhinz/vim-startify'                -- Startpage
-  use 'folke/which-key.nvim'              -- easy keymap guide
+  use 'windwp/nvim-autopairs'               -- Autoclose brackets
+  use 'famiu/bufdelete.nvim'                -- Delete buffers nicely
+  use 'tyru/open-browser.vim'               -- Open links with gx
+  use 'tpope/vim-unimpaired'                -- Symmetric mappings
+  use 'tpope/vim-commentary'                -- Easy comments
+  use 'tpope/vim-surround'                  -- change surroundings
+  use 'tpope/vim-repeat'                    -- For repeating stuff
+  use 'mhinz/vim-startify'                  -- Startpage
+  use 'folke/which-key.nvim'                -- easy keymap guide
+  use 'lukas-reineke/indent-blankline.nvim' -- Indentation lines
 
-  use {'kyazdani42/nvim-tree.lua',        -- File tree
+  use {'kyazdani42/nvim-tree.lua',          -- File tree
     requires = 'kyazdani42/nvim-web-devicons' -- Icons
   }
+  -- Temporary and homeless plugins
+  use 'dstein64/vim-startuptime'            -- Measure startup performance
 
   -- Git integration
   use {
     'lewis6991/gitsigns.nvim'
   }
-  use 'tpope/vim-fugitive'                -- Git commands in nvim
-  use 'tpope/vim-rhubarb'                 -- Gives Gbrowse command
+  use 'tpope/vim-fugitive'                  -- Git commands in nvim
+  use 'tpope/vim-rhubarb'                   -- Gives Gbrowse command
 
+  -- SpeedUp
+  use 'nathom/filetype.nvim'
+  use 'lewis6991/impatient.nvim'
 
   -- LSP related plugins
-  use 'simrat39/symbols-outline.nvim'     -- Symbol table
-  use 'ray-x/lsp_signature.nvim'          -- Function signatures
+  use 'simrat39/symbols-outline.nvim'       -- Symbol table
+  use 'ray-x/lsp_signature.nvim'            -- Function signatures
 
   -- Debugging
-  use 'mfussenegger/nvim-dap'             -- Debugging engine
-  use 'rcarriga/nvim-dap-ui'              -- UI and overlay
+  use 'mfussenegger/nvim-dap'               -- Debugging engine
+  use 'rcarriga/nvim-dap-ui'                -- UI and overlay
+
+  -- Terminal wrapper
+  use 'akinsho/toggleterm.nvim'             -- better terminal
 
   -- Completion Plugins
   use 'hrsh7th/nvim-cmp'
@@ -55,30 +63,31 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
-  use 'quangnguyen30192/cmp-nvim-ultisnips'
+  use 'saadparwaiz1/cmp_luasnip'
 
-  use 'SirVer/ultisnips'              -- Snippets
+  -- Snippets
+  use 'L3MON4D3/LuaSnip'
+  use 'rafamadriz/friendly-snippets'        -- Some default snippets
 
   -- Telescope
-  use 'nvim-telescope/telescope.nvim'         --File finder and grep
+  use 'nvim-telescope/telescope.nvim'       --File finder and grep
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use "nvim-telescope/telescope-file-browser.nvim"
 
   -- Colors and aesthetics
-  use 'norcalli/nvim-colorizer.lua'           -- Color hexcodes
-  use 'morhetz/gruvbox'
+  use 'norcalli/nvim-colorizer.lua'         -- Color hexcodes
+  use 'ellisonleao/gruvbox.nvim'
 
-  -- Statusline
-  use 'vim-airline/vim-airline-themes'
-  use 'vim-airline/vim-airline'
+  -- Statusline and bufferline
+  use 'nvim-lualine/lualine.nvim'
+  use 'akinsho/bufferline.nvim'
+
 
   -- Language specific plugins
-  use 'lervag/vimtex'                     -- Latex
+  use 'lervag/vimtex'                       -- Latex
   use {
-    'iamcco/markdown-preview.nvim',       -- Markdown preview
+    'iamcco/markdown-preview.nvim',         -- Markdown preview
     run = function() vim.fn['mkdp#util#install']() end,
     ft = {'markdown'}
   }
-  -- Load icons in the end
-  use 'ryanoasis/vim-devicons'
 end)

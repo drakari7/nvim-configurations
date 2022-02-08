@@ -1,8 +1,31 @@
+" For startup speed
+lua require('impatient')
+set termguicolors
+
+"------------------------------------------------------------
+" Sourcing config files
+"------------------------------------------------------------
+" source ~/.config/nvim/after/search.vim
+
+lua require('confs.bufferline')
+lua require('confs.colorizer')
+lua require('confs.dap')
+lua require('confs.packer')
+lua require('confs.lsp_config')
+lua require('confs.cmp')
+lua require('confs.tree_sitter')
+lua require('confs.which_key')
+lua require('confs.telescope')
+lua require('confs.autopairs')
+lua require('confs.nvimtree')
+lua require('confs.symbols')
+lua require('confs.gitsigns')
+lua require('confs.lualine')
+lua require('confs.toggleterm')
+lua require('confs.luasnip')
 "------------------------------------------------------------
 " Vim native options and settings
 "------------------------------------------------------------
-" Setting the neovim color scheme
-set termguicolors
 syntax enable
 
 " Some basic options
@@ -60,25 +83,6 @@ let g:is_mouse_enabled = 1
 
 " Enable filetype plugins
 filetype plugin indent on
-"------------------------------------------------------------
-" Sourcing config files
-"------------------------------------------------------------
-" source ~/.config/nvim/after/search.vim
-
-" Airline settings
-source ~/.config/nvim/after/airline.vim
-
-lua require('confs.dap')
-lua require('confs.packer')
-lua require('confs.lsp_config')
-lua require('confs.cmp')
-" require('confs.tree_sitter')
-lua require('confs.which_key')
-lua require('confs.telescope')
-lua require('confs.autopairs')
-lua require('confs.nvimtree')
-lua require('confs.symbols')
-lua require('confs.gitsigns')
 "------------------------------------------------------------
 " Language specific settings here
 "------------------------------------------------------------
@@ -148,10 +152,6 @@ let g:vimtex_quickfix_ignore_filters = [
     \ 'Overfull',
     \]
 
-" Floatterm options
-let g:floaterm_width = 0.8
-let g:floaterm_height = 0.8
-
 " Startify options
 let g:startify_custom_header = 'startify#fortune#quote()'
 let g:startify_session_persistence = 1
@@ -165,7 +165,7 @@ let g:startify_lists = [
             \ ]
 let g:startify_bookmarks = [
             \ {'c': '~/.config/nvim/init.vim'},
-            \ {'p': '~/.config/nvim/lua/confs/plugins.lua'},
+            \ {'p': '~/.config/nvim/lua/confs/packer.lua'},
             \ {'n': '~/notes/todo.md'},
             \ {'tc': '~/random/test.cpp'},
             \ {'tp': '~/random/test.py'},
@@ -187,9 +187,6 @@ hi GitGutterChange  guifg=#bbbb00   ctermfg=Yellow
 hi GitGutterDelete  guifg=#ff2222   ctermfg=Red
 let g:gitgutter_enabled = 1
 let g:gitgutter_map_keys = 0
-
-" Hexokinase
-let g:Hexokinase_highlighters = ['foregroundfull']
 
 "-----------------------------------------------------------
 " Mappings for different plugins
@@ -228,19 +225,22 @@ inoremap <C-k> <esc>:m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
 nnoremap <leader>k :m .-2<CR>==
 
-" For floatterm
-nnoremap <leader>tg :FloatermToggle<CR>
-tnoremap <leader>tg <C-\><C-n>:FloatermToggle<CR>
-
 " Shortcuts for file tree
 nnoremap <leader>nn :NvimTreeToggle<CR>
 nnoremap <leader>nr :NvimTreeRefresh<CR>
 
-
-" " Git gutter
-" nmap ]h <Plug>(GitGutterNextHunk)
-" nmap [h <Plug>(GitGutterPrevHunk)
-" nnoremap <leader>hp :GitGutterPreviewHunk<CR>
+" Bufferline commands
+nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
+nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
+nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
+nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
+nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
+nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
+nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
+nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
+nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
+nnoremap <silent>]b :BufferLineCycleNext<CR>
+nnoremap <silent>[b :BufferLineCyclePrev<CR>
 
 " Nvim dap mappings
 nnoremap <silent> <leader>dn :lua require'dap'.continue()<CR>
@@ -254,16 +254,13 @@ nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
 " Nvim dap ui mappings
 nnoremap <silent> <leader>dt :lua require'dapui'.toggle()<CR>
 
-" Find files using Telescope command-line sugar.
+" Telescope mappings
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>bf <cmd>Telescope buffers<cr>
 nnoremap <leader>fb <cmd>Telescope file_browser<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fv <cmd>lua require('confs.telescope').nvim_config_files()<CR>
-
-" Syntastic mappings
-nnoremap <leader>sc :SyntasticCheck<CR>
 
 " Tree sitter show highlight group
 nnoremap <leader>hi :TSHighlightCapturesUnderCursor<CR>
@@ -275,6 +272,5 @@ function! <SID>NewTestFile()
     let l:test_file = 'test.' . expand('%:e')
     execute ":e ~/random/" . l:test_file
 endfunc
-
 
 source ~/.config/nvim/after/colors.vim

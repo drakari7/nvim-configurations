@@ -5,16 +5,30 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 cmp.setup({
   snippet = {
     expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+      require('luasnip').lsp_expand(args.body)      -- for luasnip
     end,
   },
 
   sources = {
     { name = 'nvim_lsp', keyword_length = 2 },
     { name = 'nvim_lua'},
+    { name = 'luasnip' }, -- for luasnip users
     { name = 'path' },
-    { name = 'ultisnips' }, -- For ultisnips users.
     { name = 'buffer', keyword_length = 5 },
+  },
+
+  formatting = {
+    format = function (entry, vim_item)
+      vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[api]",
+        path = "[path]",
+        luasnip = "[snip]",
+        buffer = "[buf]",
+      })[entry.source.name]
+
+      return vim_item
+    end
   },
 
   mapping = {
@@ -56,6 +70,10 @@ cmp.setup({
     end,
   },
 
+
+  documentation = {
+    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  },
 
   experimental = {
     native_menu = false,
