@@ -108,8 +108,8 @@ au FileType go      nnoremap <buffer> <leader>rr :w<CR>:!go run %<CR>
 au FileType haskell nnoremap <buffer> <leader>rr :w<CR>:!runhaskell %<CR>
 
 " CPP different flag runs for CP
-au FileType cpp     nnoremap <buffer> <leader>rr :w<CR>:!g++ -std=c++17 -Wshadow -Wall -O2 % && ./a.out<CR>
-au FileType cpp     nnoremap <buffer> <leader>rt :w<CR>:!g++ -std=c++17 -Wshadow -Wall -O2 % && ./a.out < testfile<CR>
+au FileType cpp     nnoremap <buffer> <leader>rr :w<CR>:!g++ -std=c++17 -O2 % && ./a.out<CR>
+au FileType cpp     nnoremap <buffer> <leader>rt :w<CR>:!g++ -std=c++17 -O2 % && ./a.out < testfile<CR>
 au FileType cpp     nnoremap <buffer> <leader>rc :w<CR>:!g++ -g -std=c++17 %<CR>
 
 " Haskell testfile run
@@ -138,12 +138,6 @@ au Filetype markdown nnoremap <leader>mp :MarkdownPreviewToggle<CR>
 "----------------------------------------------------------
 " Plugin options
 "----------------------------------------------------------
-" Trigger configuration for UltiSnips.
-let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<leader>z"
-let g:UltiSnipsJumpBackwardTrigger="<leader>Z"
-let UltiSnipsEditSplit="vertical" 
-
 " Vimtex options
 let g:tex_flavor = "latex"
 " let g:vimtex_view_general_viewer = "zathura"
@@ -181,22 +175,17 @@ let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
-" Git gutter
-hi GitGutterAdd     guifg=#009900   ctermfg=Green
-hi GitGutterChange  guifg=#bbbb00   ctermfg=Yellow
-hi GitGutterDelete  guifg=#ff2222   ctermfg=Red
-let g:gitgutter_enabled = 1
-let g:gitgutter_map_keys = 0
+" Indent blankline
+let g:indent_blankline_buftype_exclude = ['terminal']
 
 "-----------------------------------------------------------
 " Mappings for different plugins
 "-----------------------------------------------------------
 " General purpose vim shortcuts
 nnoremap <silent> <space> :noh<CR><space>
-nnoremap Y y$
 nnoremap <leader>sv :so $MYVIMRC<CR>
 nnoremap <leader>vc :e ~/.config/nvim/init.vim<CR>
-nnoremap <leader>pc :e ~/.config/nvim/lua/confs/plugins.lua<CR>
+nnoremap <leader>pc :e ~/.config/nvim/lua/confs/packer.lua<CR>
 nnoremap <leader>nc :e ~/notes/todo.md<CR>
 nnoremap <leader>sh :!cp ~/custom_headers_cpp/* .<CR><CR>
 nnoremap <leader>lc :lclose<CR>
@@ -205,10 +194,8 @@ nnoremap <leader>w <C-W><C-W>
 nnoremap <leader>bb "_d
 vnoremap <leader>bb "_d
 nnoremap <leader>ya mmggVGy'm
-nnoremap <leader>yl mm/class Solution<CR>V$%y'm:noh<CR>
 nnoremap gb :ls<CR>:b<space>
 nnoremap <leader>bd :Bd<CR>
-nnoremap <leader>gs :OpenBrowserSearch -google<space>
 nnoremap <leader>ps :PackerSync<CR>
 
 " Better navigation
@@ -220,10 +207,6 @@ nnoremap [c [czz
 " Move text around
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-inoremap <C-j> <esc>:m .+1<CR>==
-inoremap <C-k> <esc>:m .-2<CR>==
-nnoremap <leader>j :m .+1<CR>==
-nnoremap <leader>k :m .-2<CR>==
 
 " Shortcuts for file tree
 nnoremap <leader>nn :NvimTreeToggle<CR>
@@ -251,6 +234,7 @@ nnoremap <silent> <leader>dc :lua require'dap'.close()<CR>
 
 nnoremap <silent> <leader>br :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
+
 " Nvim dap ui mappings
 nnoremap <silent> <leader>dt :lua require'dapui'.toggle()<CR>
 
@@ -267,7 +251,7 @@ nnoremap <leader>hi :TSHighlightCapturesUnderCursor<CR>
 
 "------------------Miscellaneous----------------------------
 " Open test file
-nnoremap <leader>ot :call <SID>NewTestFile()<CR>
+nnoremap <silent> <leader>ot :call <SID>NewTestFile()<CR>
 function! <SID>NewTestFile()
     let l:test_file = 'test.' . expand('%:e')
     execute ":e ~/random/" . l:test_file

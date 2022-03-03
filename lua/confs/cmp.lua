@@ -12,19 +12,20 @@ cmp.setup({
   sources = {
     { name = 'nvim_lsp', keyword_length = 2 },
     { name = 'nvim_lua'},
-    { name = 'luasnip' }, -- for luasnip users
+    { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer', keyword_length = 5 },
   },
 
   formatting = {
     format = function (entry, vim_item)
+      vim_item.abbr = string.sub(vim_item.abbr, 1, 35)
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
-        nvim_lua = "[api]",
-        path = "[path]",
-        luasnip = "[snip]",
-        buffer = "[buf]",
+        nvim_lua = "[API]",
+        path = "[Path]",
+        luasnip = "[Snip]",
+        buffer = "[Buf]",
       })[entry.source.name]
 
       return vim_item
