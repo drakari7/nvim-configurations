@@ -48,6 +48,7 @@ return require('packer').startup(function(use)
   -- LSP related plugins
   use 'simrat39/symbols-outline.nvim'       -- Symbol table
   use 'ray-x/lsp_signature.nvim'            -- Function signatures
+  use 'jose-elias-alvarez/null-ls.nvim'     -- Formatting
 
   -- Debugging
   use 'mfussenegger/nvim-dap'               -- Debugging engine
@@ -57,15 +58,18 @@ return require('packer').startup(function(use)
   use 'akinsho/toggleterm.nvim'             -- better terminal
 
   -- Completion Plugins
-  use 'hrsh7th/nvim-cmp'
+  use {'hrsh7th/nvim-cmp', branch = 'ad3c1adbc365a3b70d8b6e1e90946d98eeacf20f'}
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lua'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
   use 'saadparwaiz1/cmp_luasnip'
+  use 'quangnguyen30192/cmp-nvim-ultisnips'
 
   -- Snippets
+  use 'SirVer/ultisnips'
+  use 'honza/vim-snippets'
   use 'L3MON4D3/LuaSnip'
   use 'rafamadriz/friendly-snippets'        -- Some default snippets
 

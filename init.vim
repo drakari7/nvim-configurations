@@ -23,6 +23,7 @@ lua require('confs.gitsigns')
 lua require('confs.lualine')
 lua require('confs.toggleterm')
 lua require('confs.luasnip')
+lua require('confs.null_ls')
 "------------------------------------------------------------
 " Vim native options and settings
 "------------------------------------------------------------
@@ -108,8 +109,8 @@ au FileType go      nnoremap <buffer> <leader>rr :w<CR>:!go run %<CR>
 au FileType haskell nnoremap <buffer> <leader>rr :w<CR>:!runhaskell %<CR>
 
 " CPP different flag runs for CP
-au FileType cpp     nnoremap <buffer> <leader>rr :w<CR>:!g++ -std=c++17 -O2 % && ./a.out<CR>
-au FileType cpp     nnoremap <buffer> <leader>rt :w<CR>:!g++ -std=c++17 -O2 % && ./a.out < testfile<CR>
+au FileType cpp     nnoremap <buffer> <leader>rr :w<CR>:!g++ -std=c++17 % && ./a.out<CR>
+au FileType cpp     nnoremap <buffer> <leader>rt :w<CR>:!g++ -std=c++17 % && ./a.out < testfile<CR>
 au FileType cpp     nnoremap <buffer> <leader>rc :w<CR>:!g++ -g -std=c++17 %<CR>
 
 " Haskell testfile run
@@ -176,7 +177,7 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
 " Indent blankline
-let g:indent_blankline_buftype_exclude = ['terminal']
+let g:indent_blankline_buftype_exclude = ['terminal', 'nofile']
 
 "-----------------------------------------------------------
 " Mappings for different plugins
@@ -184,6 +185,7 @@ let g:indent_blankline_buftype_exclude = ['terminal']
 " General purpose vim shortcuts
 nnoremap <silent> <space> :noh<CR><space>
 nnoremap <leader>sv :so $MYVIMRC<CR>
+nnoremap <leader>ss :so ~/.config/nvim/lua/confs/snippets.lua<CR>
 nnoremap <leader>vc :e ~/.config/nvim/init.vim<CR>
 nnoremap <leader>pc :e ~/.config/nvim/lua/confs/packer.lua<CR>
 nnoremap <leader>nc :e ~/notes/todo.md<CR>
@@ -244,6 +246,7 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>bf <cmd>Telescope buffers<cr>
 nnoremap <leader>fb <cmd>Telescope file_browser<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fr <cmd>Telescope resume<cr>
 nnoremap <leader>fv <cmd>lua require('confs.telescope').nvim_config_files()<CR>
 
 " Tree sitter show highlight group

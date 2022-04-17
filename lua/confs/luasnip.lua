@@ -1,7 +1,7 @@
 local function prequire(...)
-local status, lib = pcall(require, ...)
-if (status) then return lib end
-    return nil
+  local status, lib = pcall(require, ...)
+  if (status) then return lib end
+  return nil
 end
 
 local ls = prequire('luasnip')
@@ -48,5 +48,5 @@ vim.api.nvim_set_keymap("s", "<C-k>", "v:lua.goto_prev_snip()", {expr = true})
 vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
 vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
 
--- Load some default snippets
+-- Load some default snippets from friendly-snippets
 require("luasnip.loaders.from_vscode").load()

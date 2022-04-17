@@ -1,4 +1,5 @@
 local actions = require('telescope.actions')
+
 require('telescope').setup{
   defaults = {
     mappings = {
@@ -17,12 +18,14 @@ require('telescope').setup{
     layout_config = {
         preview_width = 0.55,
     },
+    file_ignore_patterns = {
+      "__pycache__/",
+    },
     -- path_display = {
     --     "absolute",
     --     -- shorten = 3,
     -- },
   },
-
 }
 
 -- Loading extensions

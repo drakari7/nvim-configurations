@@ -1,9 +1,18 @@
-vim.g.nvim_tree_indent_markers = 1
-
 require'nvim-tree'.setup {
   disable_netrw       = true,
   hijack_netrw        = true,
   open_on_setup       = false,
+
+  renderer = {
+    indent_markers = {
+      enable = true,
+      icons = {
+        corner = "└ ",
+        edge = "│ ",
+        none = "  ",
+      },
+    },
+  },
   ignore_ft_on_setup  = {},
   update_to_buf_dir   = {
     enable = true,
@@ -23,9 +32,9 @@ require'nvim-tree'.setup {
     args = {}
   },
   view = {
-    width = 30,
+    width = math.floor(vim.o.columns * 0.2),
     side = 'left',
-    auto_resize = true,
+    auto_resize = false,
     mappings = {
       custom_only = false,
       list = {}

@@ -6,12 +6,14 @@ cmp.setup({
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)      -- for luasnip
+      vim.fn["UltiSnips#Anon"](args.body)  -- For `ultisnips` users.
     end,
   },
 
   sources = {
     { name = 'nvim_lsp', keyword_length = 2 },
     { name = 'nvim_lua'},
+    { name = 'ultisnips' },
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer', keyword_length = 5 },
@@ -24,7 +26,8 @@ cmp.setup({
         nvim_lsp = "[LSP]",
         nvim_lua = "[API]",
         path = "[Path]",
-        luasnip = "[Snip]",
+        luasnip = "[LuaSnip]",
+        ultisnips = "[UltiSnips]",
         buffer = "[Buf]",
       })[entry.source.name]
 
@@ -71,13 +74,14 @@ cmp.setup({
     end,
   },
 
-
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  window = {
+    documentation = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    }
   },
 
-  experimental = {
-    native_menu = false,
+  documentation = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
   }
 })
 
