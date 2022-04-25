@@ -58,7 +58,7 @@ return require('packer').startup(function(use)
   use 'akinsho/toggleterm.nvim'             -- better terminal
 
   -- Completion Plugins
-  use {'hrsh7th/nvim-cmp', branch = 'ad3c1adbc365a3b70d8b6e1e90946d98eeacf20f'}
+  use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lua'
   use 'hrsh7th/cmp-buffer'

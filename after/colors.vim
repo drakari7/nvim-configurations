@@ -12,6 +12,8 @@ hi Visual           guifg=none          guibg=#303030       gui=none
 hi Comment                                                  gui=italic
 hi helpExample      guifg=#ebdbb2       guibg=#1f1f1f       gui=none
 hi Ignore           guifg=#619fff
+hi Search           guifg=wheat         guibg=peru
+hi IncSearch        guifg=wheat         guibg=peru
 
 " Completion menu options
 hi Pmenu            guifg=#efefef       guibg=#363944       gui=none
