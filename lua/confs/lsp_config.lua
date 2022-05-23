@@ -1,3 +1,6 @@
+require("nvim-lsp-installer").setup{
+  automatic_installation = true,
+}
 local nvim_lsp = require('lspconfig')
 
 local opts = { noremap=true, silent=true }
@@ -31,7 +34,7 @@ local lsp_signature_cfg = {
   bind = true,
   doc_lines = 7,
   floating_window = false,
-  fix_pos = true, 
+  fix_pos = true,
   hint_enable = true,
   hint_prefix = "> ",
   hint_scheme = "String",
@@ -54,7 +57,7 @@ vim.api.nvim_set_keymap('n', '<leader>dl', '<cmd>lua vim.diagnostic.setloclist()
 local function on_attach(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
-  -- attaching lsp_signature 
+  -- attaching lsp_signature
   require('lsp_signature').on_attach(lsp_signature_cfg)
 
   -- Mappings.
@@ -78,7 +81,20 @@ end
 -- capabilities from nvim cmp
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local servers = { "pyright", "clangd", "vimls", "tsserver", "texlab", "bashls", "gopls", "hls", "html", "cssls", "html"}
+local servers = {
+  "jedi_language_server",
+  "clangd",
+  "vimls",
+  "tsserver",
+  "texlab",
+  "bashls",
+  "gopls",
+  "html",
+  "cssls",
+  "html",
+  "sumneko_lua"
+}
+
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -90,25 +106,25 @@ end
 
 
 -- Installing lua language server separately
-local sumneko_root_path = "/Users/shreyash/git/lua-language-server"
-local sumneko_binary = "/Users/shreyash/git/lua-language-server/bin/macOS/lua-language-server"
+-- local sumneko_root_path = "/Users/shreyash/git/lua-language-server"
+-- local sumneko_binary = "/Users/shreyash/git/lua-language-server/bin/macOS/lua-language-server"
 
-require'lspconfig'.sumneko_lua.setup {
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-                path = vim.split(package.path, ';')
-            },
-            diagnostics = {
-                globals = {'vim'}
-            },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-        },
-    },
-    on_attach = on_attach,
-    handlers = handlers,
-}
+-- nvim_lsp.sumneko_lua.setup {
+--     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+--     settings = {
+--         Lua = {
+--             runtime = {
+--                 version = 'LuaJIT',
+--                 path = vim.split(package.path, ';')
+--             },
+--             diagnostics = {
+--                 globals = {'vim'}
+--             },
+--             workspace = {
+--                 library = vim.api.nvim_get_runtime_file("", true),
+--             },
+--         },
+--     },
+--     on_attach = on_attach,
+--     handlers = handlers,
+-- }

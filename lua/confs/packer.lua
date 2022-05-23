@@ -11,6 +11,7 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'               -- Basic LSP plugin
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
+  use 'williamboman/nvim-lsp-installer'
   use {'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }

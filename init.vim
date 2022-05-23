@@ -61,7 +61,8 @@ set timeoutlen=1000
 " set autochdir
 set scrolloff=5
 set splitbelow splitright       " split below instead of top
-set conceallevel=1
+set conceallevel=0
+" set textwidth=70
 
 " listchars
 set list
