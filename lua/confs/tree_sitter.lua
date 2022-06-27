@@ -13,7 +13,7 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
 
     -- list of language that will be disabled
-    disable = { "vim" },
+    disable = {},
 
     additional_vim_regex_highlighting = false,
   },

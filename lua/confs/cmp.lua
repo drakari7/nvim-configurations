@@ -4,7 +4,7 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 cmp.setup({
   mapping = {
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-e>'] = cmp.mapping({
       i = cmp.mapping.abort(),
@@ -31,7 +31,7 @@ cmp.setup({
   sources = {
     { name = 'nvim_lsp', keyword_length = 2 },
     { name = 'nvim_lua'},
-    { name = 'ultisnips' },
+    -- { name = 'ultisnips' },
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer', keyword_length = 5 },
@@ -40,7 +40,7 @@ cmp.setup({
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)      -- for luasnip
-      vim.fn["UltiSnips#Anon"](args.body)  -- For `ultisnips` users.
+      -- vim.fn["UltiSnips#Anon"](args.body)  -- For `ultisnips` users.
     end,
   },
 

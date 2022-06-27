@@ -1,11 +1,13 @@
 local dap = require('dap')
 
--- require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+require("nvim-dap-virtual-text").setup()
+
 dap.adapters.python = {
   type = 'executable',
-  command = '/Users/shreyash/.virtualenvs/debugpy/bin/python',
+  command = os.getenv('HOME') .. '/.virtualenvs/debugpy/bin/python',
   args = { '-m', 'debugpy.adapter' },
 }
+
 dap.configurations.python = {
   {
     -- The first three options are required by nvim-dap
@@ -20,13 +22,11 @@ dap.configurations.python = {
       -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
       -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
       -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-      local cwd = vim.fn.getcwd()
-      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-        return cwd .. '/venv/bin/python'
-      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-        return cwd .. '/.venv/bin/python'
+      local vdir = os.getenv('VIRTUAL_ENV')
+      if vdir then
+        return vdir .. '/bin/python'
       else
-        return '/usr/bin/python'
+        return '/usr/bin/python3'
       end
     end
   },

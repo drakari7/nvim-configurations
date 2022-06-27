@@ -1,29 +1,30 @@
+vim.opt.termguicolors = true
+--------------------------------------------------------------
+-- Sourcing config files
+-------------------------------------------------------------
+
+require('confs.bufferline')
+require('confs.colorizer')
+require('confs.dap')
+require('confs.packer')
+require('confs.lsp_config')
+require('confs.cmp')
+require('confs.tree_sitter')
+require('confs.which_key')
+require('confs.telescope')
+require('confs.autopairs')
+require('confs.nvimtree')
+require('confs.symbols')
+require('confs.gitsigns')
+require('confs.lualine')
+require('confs.toggleterm')
+require('confs.luasnip')
+require('confs.null_ls')
+
+vim.cmd([[
 " For startup speed
 lua require('impatient')
-set termguicolors
 
-"------------------------------------------------------------
-" Sourcing config files
-"------------------------------------------------------------
-" source ~/.config/nvim/after/search.vim
-
-lua require('confs.bufferline')
-lua require('confs.colorizer')
-lua require('confs.dap')
-lua require('confs.packer')
-lua require('confs.lsp_config')
-lua require('confs.cmp')
-lua require('confs.tree_sitter')
-lua require('confs.which_key')
-lua require('confs.telescope')
-lua require('confs.autopairs')
-lua require('confs.nvimtree')
-lua require('confs.symbols')
-lua require('confs.gitsigns')
-lua require('confs.lualine')
-lua require('confs.toggleterm')
-lua require('confs.luasnip')
-lua require('confs.null_ls')
 "------------------------------------------------------------
 " Vim native options and settings
 "------------------------------------------------------------
@@ -108,6 +109,7 @@ au FileType sh      nnoremap <buffer> <leader>rr :w<CR>:!sh %<CR>
 au FileType c       nnoremap <buffer> <leader>rr :w<CR>:!gcc % && ./a.out<CR>
 au FileType go      nnoremap <buffer> <leader>rr :w<CR>:!go run %<CR>
 au FileType haskell nnoremap <buffer> <leader>rr :w<CR>:!runhaskell %<CR>
+au FileType lua     nnoremap <buffer> <leader>rr :w<CR>:!lua %<CR>
 
 " CPP different flag runs for CP
 au FileType cpp     nnoremap <buffer> <leader>rr :w<CR>:!g++ -std=c++17 % && ./a.out<CR>
@@ -166,6 +168,8 @@ let g:startify_bookmarks = [
             \ {'tc': '~/random/test.cpp'},
             \ {'tp': '~/random/test.py'},
             \ {'th': '~/random/test.hs'},
+            \ {'tl': '~/random/test.lua'},
+            \ {'tx': '~/random/test.tex'},
             \ {'bl': '~/notes/bucket_list.md'},
             \ ]
 
@@ -184,7 +188,7 @@ let g:indent_blankline_buftype_exclude = ['terminal', 'nofile']
 " Mappings for different plugins
 "-----------------------------------------------------------
 " General purpose vim shortcuts
-nnoremap <silent> <space> :noh<CR><space>
+nnoremap <silent> <space> :noh<CR>
 nnoremap <leader>sv :so $MYVIMRC<CR>
 nnoremap <leader>ss :so ~/.config/nvim/lua/confs/snippets.lua<CR>
 nnoremap <leader>vc :e ~/.config/nvim/init.vim<CR>
@@ -200,6 +204,7 @@ nnoremap <leader>ya mmggVGy'm
 nnoremap gb :ls<CR>:b<space>
 nnoremap <leader>bd :Bd<CR>
 nnoremap <leader>ps :PackerSync<CR>
+nnoremap <leader>cd :cd %:p:h<CR>
 
 " Better navigation
 nnoremap n nzz
@@ -249,16 +254,29 @@ nnoremap <leader>fb <cmd>Telescope file_browser<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fr <cmd>Telescope resume<cr>
 nnoremap <leader>fv <cmd>lua require('confs.telescope').nvim_config_files()<CR>
+nnoremap <leader>fc <cmd>Telescope current_buffer_fuzzy_find<CR>
 
 " Tree sitter show highlight group
-nnoremap <leader>hi :TSHighlightCapturesUnderCursor<CR>
-
+nnoremap <leader>hi :tshighlightcapturesundercursor<cr>
+nnoremap <leader>cp "ayiw~h"byw:%s/<C-R>a/<C-R>b/g<CR>
 "------------------Miscellaneous----------------------------
 " Open test file
-nnoremap <silent> <leader>ot :call <SID>NewTestFile()<CR>
-function! <SID>NewTestFile()
-    let l:test_file = 'test.' . expand('%:e')
-    execute ":e ~/random/" . l:test_file
-endfunc
+" nnoremap <silent> <leader>ot :call <SID>NewTestFile()<CR>
+" function! <SID>NewTestFile()
+"     let l:test_file = 'test.' . expand('%:e')
+"     execute ":e ~/random/" . l:test_file
+" endfunc
+" 
+" source ~/.config/nvim/after/colors.vim
+" 
+" nnoremap <silent> <leader>mt :call <SID>MakeTransparent()<CR>
+" function! <SID>MakeTransparent()
+"     execute ":hi Normal guibg=None"
+"     execute ":hi EndOfBuffer guibg=None"
+"     execute ":hi SignColumn guibg=None"
+"     execute ":hi LineNr guibg=None"
+" endfunc
 
+" Manually source at the end
 source ~/.config/nvim/after/colors.vim
+]])

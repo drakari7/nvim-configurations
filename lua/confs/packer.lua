@@ -54,6 +54,7 @@ return require('packer').startup(function(use)
   -- Debugging
   use 'mfussenegger/nvim-dap'               -- Debugging engine
   use 'rcarriga/nvim-dap-ui'                -- UI and overlay
+  use 'theHamsta/nvim-dap-virtual-text'     -- Virtual text summary
 
   -- Terminal wrapper
   use 'akinsho/toggleterm.nvim'             -- better terminal
@@ -66,11 +67,11 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
   use 'saadparwaiz1/cmp_luasnip'
-  use 'quangnguyen30192/cmp-nvim-ultisnips'
+  -- use 'quangnguyen30192/cmp-nvim-ultisnips'
 
   -- Snippets
-  use 'SirVer/ultisnips'
-  use 'honza/vim-snippets'
+  -- use 'SirVer/ultisnips'
+  -- use 'honza/vim-snippets'
   use 'L3MON4D3/LuaSnip'
   use 'rafamadriz/friendly-snippets'        -- Some default snippets
 
