@@ -3,22 +3,22 @@ vim.opt.termguicolors = true
 -- Sourcing config files
 -------------------------------------------------------------
 
-require('confs.bufferline')
-require('confs.colorizer')
-require('confs.dap')
 require('confs.packer')
-require('confs.lsp_config')
-require('confs.cmp')
 require('confs.tree_sitter')
-require('confs.which_key')
-require('confs.telescope')
+require('confs.lsp_config')
 require('confs.autopairs')
+require('confs.cmp')
+require('confs.gitsigns')
+require('confs.which_key')
 require('confs.nvimtree')
 require('confs.symbols')
-require('confs.gitsigns')
 require('confs.lualine')
 require('confs.toggleterm')
 require('confs.luasnip')
+require('confs.bufferline')
+-- require('confs.colorizer')
+require('confs.telescope')
+require('confs.dap')
 require('confs.null_ls')
 
 vim.cmd([[
@@ -31,7 +31,7 @@ lua require('impatient')
 syntax enable
 
 " Some basic options
-" TODO: lookup wildmenu, also shada
+" TODO: lookup wildmenu
 set number
 set hidden
 set whichwrap+=<,>,h,l,[,]
@@ -162,7 +162,7 @@ let g:startify_lists = [
             \ { 'type': 'commands',  'header': ['   Commands']       },
             \ ]
 let g:startify_bookmarks = [
-            \ {'c': '~/.config/nvim/init.vim'},
+            \ {'c': '~/.config/nvim/init.lua'},
             \ {'p': '~/.config/nvim/lua/confs/packer.lua'},
             \ {'n': '~/notes/todo.md'},
             \ {'tc': '~/random/test.cpp'},

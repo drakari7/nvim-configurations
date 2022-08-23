@@ -8,10 +8,11 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'              -- Packer manages itself
 
   -- LSP and nvim core
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
   use 'neovim/nvim-lspconfig'               -- Basic LSP plugin
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
-  use 'williamboman/nvim-lsp-installer'
   use {'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }
